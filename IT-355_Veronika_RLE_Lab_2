@@ -1,0 +1,75 @@
+import sys
+
+# ------------------- RLE ENCODE -------------------
+def rle_encode(text: str) -> str:
+    if not text:
+        return ""
+
+    result = ""
+    run_length = 1
+
+    for i in range(1, len(text) + 1):
+        if i < len(text) and text[i] == text[i - 1]:
+            run_length += 1
+        else:
+            result += str(run_length)
+            result += text[i - 1]
+            run_length = 1
+
+    return result
+
+
+# ------------------- RLE DECODE -------------------
+def rle_decode(encoded: str) -> str:
+    result = ""
+    run_length = 0
+    expecting_count = True
+
+    for ch in encoded:
+        if expecting_count:
+            if ch.isdigit():
+                run_length = run_length * 10 + int(ch)
+            else:
+                expecting_count = False
+
+        if not expecting_count:
+            result += ch * run_length
+            run_length = 0
+            expecting_count = True
+
+    return result
+
+
+# ------------------- INTERACTIVE SHELL -------------------
+def main():
+    running = True
+
+    while running:
+        print("\n=== RLE Tool ===")
+        print("1) Encode")
+        print("2) Decode")
+        print("3) Quit")
+
+        try:
+            option = int(input("Select option: "))
+        except ValueError:
+            print("Invalid choice.")
+            continue
+
+        if option == 3:
+            print("Goodbye!")
+            running = False
+            continue
+
+        text = input("Enter string: ")
+
+        if option == 1:
+            print("Encoded:", rle_encode(text))
+        elif option == 2:
+            print("Decoded:", rle_decode(text))
+        else:
+            print("Invalid choice.")
+
+
+if __name__ == "__main__":
+    main()
