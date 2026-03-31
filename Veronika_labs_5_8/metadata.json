@@ -1,0 +1,5 @@
+{
+  "name": "Software Licensing System Simulator",
+  "description": "A simulation of hardware-locked licensing systems based on CPU ID, MAC address, and hashing algorithms.",
+  "requestFramePermissions": []
+}
